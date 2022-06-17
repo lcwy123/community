@@ -2,8 +2,10 @@ package com.community;
 
 import com.community.dao.AlphaDao;
 import com.community.dao.DiscussPostMapper;
+import com.community.dao.LoginTicketMapper;
 import com.community.dao.UserMapper;
 import com.community.entity.DiscussPost;
+import com.community.entity.LoginTicket;
 import com.community.entity.User;
 import com.community.service.AlphaService;
 import org.junit.jupiter.api.Test;
@@ -22,6 +24,9 @@ import java.util.List;
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class MapperTests {
+
+    @Autowired
+    private LoginTicketMapper loginTicketMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -77,5 +82,25 @@ public class MapperTests {
 
         int rows = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(rows);
+    }
+
+    @Test
+    public void testInsertLoginTicket() {
+        LoginTicket loginTicket = new LoginTicket();
+        loginTicket.setTicket("abs");
+        loginTicket.setUserId(101);
+        loginTicket.setStatus(0);
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + 1000 * 60 * 10));
+        loginTicketMapper.insertLoginTicket(loginTicket);
+    }
+
+    @Test
+    public void testSelectLoginTicket() {
+        LoginTicket loginTicket = loginTicketMapper.selectByTicket("abs");
+        System.out.println(loginTicket);
+
+        loginTicketMapper.updateStatus("abs", 1);
+        loginTicket = loginTicketMapper.selectByTicket("abs");
+        System.out.println(loginTicket);
     }
 }
