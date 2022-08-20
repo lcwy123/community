@@ -14,9 +14,9 @@ public interface DiscussPostMapper {
     // @Param为参数取别名，需要动态拼sql，且只有一个参数时必须要加这个注解
     int selectDiscussPostRows(@Param("userId") int userId);
 
-/*    int insertDiscussPost(DiscussPost discussPost);
+    int insertDiscussPost(DiscussPost discussPost);
 
     DiscussPost selectDiscussPostById(int id);
 
-    int updateCommentCount(int id, int commentCount);*/
+    // int updateCommentCount(int id, int commentCount);
 }
