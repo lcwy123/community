@@ -21,6 +21,9 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.Query;
 
+import java.util.List;
+import java.util.Map;
+
 @SpringBootTest
 public class ElasticsearchTests {
 
@@ -89,8 +92,8 @@ public class ElasticsearchTests {
 
         SearchHits<DiscussPost> page = elasticsearchRestTemplate.search(query, DiscussPost.class);
 
-        System.out.println(page.getTotalHits());
         for(SearchHit<DiscussPost> post : page) {
+            Map<String, List<String>> highlightFields = post.getHighlightFields();
             System.out.println(post.getContent());
         }
 

@@ -34,12 +34,11 @@ public class SearchController implements CommunityConstant {
     @RequestMapping(path = "/search", method = RequestMethod.GET)
     public String search(String keyword, Page page, Model model) {
         // 搜索帖子
-        SearchHits<DiscussPost> searchHits = elasticsearchService.searchDiscussPost(keyword, page.getCurrent() - 1, page.getLimit());
+        List<DiscussPost> searchHits = elasticsearchService.searchDiscussPost(keyword, page.getCurrent() - 1, page.getLimit());
         // 聚合数据
         List<Map<String, Object>> discussPosts = new ArrayList<>();
         if(searchHits != null) {
-            for(SearchHit<DiscussPost> hit : searchHits) {
-                DiscussPost post = hit.getContent();
+            for(DiscussPost post : searchHits) {
                 Map<String, Object> map = new HashMap<>();
                 // 帖子
                 map.put("post", post);
@@ -54,7 +53,7 @@ public class SearchController implements CommunityConstant {
         model.addAttribute("discussPosts", discussPosts);
         model.addAttribute("keyword", keyword);
         page.setPath("/search?keyword=" + keyword);
-        page.setRows(searchHits == null ? 0 : (int) searchHits.getTotalHits());
+        page.setRows(searchHits == null ? 0 : searchHits.size());
 
         return "/site/search";
     }
