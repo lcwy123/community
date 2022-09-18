@@ -1,6 +1,10 @@
 package com.nowcoder.community.entity;
 
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 public class User {
 
@@ -27,10 +31,47 @@ public class User {
         return username;
     }
 
+  /*  @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }*/
+
     public void setUsername(String username) {
         this.username = username;
     }
 
+ /*   @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new GrantedAuthority() {
+            @Override
+            public String getAuthority() {
+                switch (type) {
+                    case 1:
+                        return "ADMIN";
+                    default:
+                        return "USER";
+                }
+            }
+        });
+        return null;
+    }
+*/
     public String getPassword() {
         return password;
     }
